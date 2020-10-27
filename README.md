@@ -1,1 +1,1 @@
-# Spring_Web_Blog_
+# Spring_Web_Blog_Bootstrap_BootstrapCDN_MAMP_phpMyAdmin
