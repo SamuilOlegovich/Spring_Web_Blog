@@ -57,7 +57,7 @@ public class BlogController {
             model.addAttribute("post", arrayPostList);
             return "blog-add";
         }
-        return "redirect:/blog";
+        return "redirect:/blog-main";
     }
 
 
@@ -71,7 +71,7 @@ public class BlogController {
             model.addAttribute("post", arrayPostList);
             return "blog-edit";
         }
-        return "redirect:/blog";
+        return "redirect:/blog-main";
     }
 
 
@@ -88,7 +88,7 @@ public class BlogController {
         //Post post = new Post(title, anons, full_text);
 //        postRepository.save(post);
         // redirect:/ - для переадресации на другую страницу
-        return "blog/add";
+        return "redirect:/blog-main";
     }
 
 
@@ -100,13 +100,15 @@ public class BlogController {
         post.setTitle(title);
         post.setTitle(anons);
         postRepository.save(post);
-//    @GetMapping("/blog/add")
-//    public String blogPostAdd(Model model) {
-
-        //Post post = new Post(title, anons, full_text);
-//        postRepository.save(post);
-        // redirect:/ - для переадресации на другую страницу
         return "redirect:/blog";
     }
 
+
+
+    @PostMapping("/blog/{id}/remove")
+    public String blogPostDelete(@PathVariable(value = "id") Long id, Model model) {
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+        return "redirect:/blog";
+    }
 }
