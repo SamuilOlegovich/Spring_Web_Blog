@@ -1,20 +1,29 @@
 package com.SamuilOlegovich.blog.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
-
-@Entity                                                 // класс который будет создавать таблицу если ее еще нет со всеми ее полями и т д
+@Entity                          // класс который будет создавать таблицу если ее еще нет со всеми ее полями и т д
 public class Post {
 
-    @Id                                                 // эта анотация должна быть именно из библиотеки - javax.persistence
-    @GeneratedValue(strategy = GenerationType.AUTO)     // позволяет каждый раз генирировать уникальное значение в этом поле
-    private long id;
-    private String title, anons, full_text;
+    @Id                                                     // эта анотация должна быть именно из библиотеки - javax.persistence
+//    @GeneratedValue(strategy = GenerationType.AUTO)       // позволяет каждый раз генирировать уникальное значение в этом поле
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)     // позволяет каждый раз генирировать уникальное значение в этом поле
+    private Long id;
+    private String title, anons;
+    @Column(columnDefinition = "TEXT")                      // для записи большого текста (длинного)
+    private String full_text;
     private int views;
+
+
+
+    public Post() { }
+
+    public Post(String title, String anons, String full_text) {
+        this.full_text = full_text;
+        this.title = title;
+        this.anons = anons;
+    }
 
 
 
