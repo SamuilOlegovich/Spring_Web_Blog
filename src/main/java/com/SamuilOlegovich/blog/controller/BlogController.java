@@ -2,10 +2,7 @@ package com.SamuilOlegovich.blog.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import com.SamuilOlegovich.blog.repo.PostRepository;
 import org.springframework.stereotype.Controller;
 import com.SamuilOlegovich.blog.models.Post;
@@ -13,6 +10,8 @@ import org.springframework.ui.Model;
 
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
+import java.util.ArrayList;
+import java.util.Optional;
 
 
 @Controller
@@ -34,6 +33,7 @@ public class BlogController {
         return "blog-main";
     }
 
+
 /*
     @GetMapping("/blog/add") потому что мы получаем что-то от сервера,
     в частности переход на новую страницу
@@ -42,6 +42,39 @@ public class BlogController {
     public String blogAdd(Model model) {
         return "blog-add";
     }
+
+
+/*
+ для прописания динамического параметра - {id} - @PathVariable(value = "id")
+*/
+    @GetMapping("/blog/{id}")
+    public String blogDetails(@PathVariable(value = "id") Long id, Model model) {
+        if (postRepository.existsById(id)) {
+
+            Optional<Post> post = postRepository.findById(id);
+            ArrayList<Post> arrayPostList = new ArrayList<>();
+            post.ifPresent(arrayPostList::add);
+            model.addAttribute("post", arrayPostList);
+            return "blog-add";
+        }
+        return "redirect:/blog";
+    }
+
+
+
+    @GetMapping("/blog/{id}/edit")
+    public String blogEdit(@PathVariable(value = "id") Long id, Model model) {
+        if (postRepository.existsById(id)) {
+            Optional<Post> post = postRepository.findById(id);
+            ArrayList<Post> arrayPostList = new ArrayList<>();
+            post.ifPresent(arrayPostList::add);
+            model.addAttribute("post", arrayPostList);
+            return "blog-edit";
+        }
+        return "redirect:/blog";
+    }
+
+
 /*
      @PostMapping("/blog/add") пост потому что мы тут уже отслеживаем и принимаем данные с указаной страницы
      @RequestPart String title - сообщает о том что мы получаем данные, какого типа и из какого поля
