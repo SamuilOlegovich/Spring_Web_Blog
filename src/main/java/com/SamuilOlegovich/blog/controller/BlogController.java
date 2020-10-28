@@ -88,7 +88,25 @@ public class BlogController {
         //Post post = new Post(title, anons, full_text);
 //        postRepository.save(post);
         // redirect:/ - для переадресации на другую страницу
-        return "blog-add";
+        return "blog/add";
+    }
+
+
+    @PostMapping("/blog/{id}/edit")
+    public String blogPostUpdate(@PathVariable(value = "id") Long id, @RequestPart String title,
+                                 @RequestPart String anons, @RequestPart String full_text, Model model) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setTitle(full_text);
+        post.setTitle(title);
+        post.setTitle(anons);
+        postRepository.save(post);
+//    @GetMapping("/blog/add")
+//    public String blogPostAdd(Model model) {
+
+        //Post post = new Post(title, anons, full_text);
+//        postRepository.save(post);
+        // redirect:/ - для переадресации на другую страницу
+        return "redirect:/blog";
     }
 
 }
