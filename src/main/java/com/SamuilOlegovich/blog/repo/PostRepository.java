@@ -6,9 +6,5 @@ CrudRepository - интерфейс имеет все необходимые м�
 import com.SamuilOlegovich.blog.models.Post;
 import org.springframework.data.repository.CrudRepository;
 
-
-
-import org.springframework.data.repository.CrudRepository;
-
 public interface PostRepository extends CrudRepository<Post, Long> {
 }

@@ -7,10 +7,10 @@ import javax.persistence.*;
 public class Post {
 
     @Id                                                     // эта анотация должна быть именно из библиотеки - javax.persistence
-//    @GeneratedValue(strategy = GenerationType.AUTO)       // позволяет каждый раз генирировать уникальное значение в этом поле
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)     // позволяет каждый раз генирировать уникальное значение в этом поле
+    @GeneratedValue(strategy = GenerationType.AUTO)       // позволяет каждый раз генирировать уникальное значение в этом поле
     private Long id;
-    private String title, anons;
+    private String title;
+    private String anons;
     @Column(columnDefinition = "TEXT")                      // для записи большого текста (длинного)
     private String full_text;
     private int views;
@@ -27,11 +27,11 @@ public class Post {
 
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
